@@ -61,6 +61,7 @@ You will need to use the environment variables [defined in `.env.example`](.env.
 pnpm install
 pnpm dev
 ```
+trivial change
 
 Your app template should now be running on [localhost:3000](http://localhost:3000/).
 
