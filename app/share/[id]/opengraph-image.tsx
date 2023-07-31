@@ -1,6 +1,7 @@
 import { ImageResponse } from 'next/server'
 
-import { getSharedChat } from '@/app/actions'
+import { kv } from '@vercel/kv'
+import { Chat } from '@/lib/types'
 
 export const runtime = 'edge'
 
@@ -21,6 +22,16 @@ interface ImageProps {
   params: {
     id: string
   }
+}
+
+export async function getSharedChat(id: string) {
+  const chat = await kv.hgetall<Chat>(`chat:${id}`)
+
+  if (!chat || !chat.sharePath) {
+    return null
+  }
+
+  return chat
 }
 
 export default async function Image({ params }: ImageProps) {
